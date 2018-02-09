@@ -1,5 +1,6 @@
 package model;
 import java.util.Random;
+import java.util.UUID;
 
 public enum Treasure {
     RING ("Ring", "r"),
@@ -9,12 +10,18 @@ public enum Treasure {
     SHACKLES ("Shackles", "x"),
     SHOE ("Shoe", "s");
     
+    private final UUID id;
     private String name;
     private String symbol;
     
     private Treasure(String name, String symbol) {
+        id = UUID.randomUUID();
         this.name = name;
         this.symbol = symbol;
+    }
+    
+    public String getId() {
+        return id.toString();
     }
 
     public String getName() {
