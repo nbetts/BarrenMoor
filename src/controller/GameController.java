@@ -111,6 +111,16 @@ public class GameController {
             case "compass":
                 response = "The dial reads " + getNearestTreasureDistance() + "m.";
                 break;
+            case "help":
+                response = "north/n = move north\n" +
+                        "south/s = move south\n" +
+                        "east/e = move east\n" +
+                        "west/w = move west\n" +
+                        "quit/exit = quit game\n" +
+                        "compass = check compass\n" +
+                        "toggle compass = toggle compass checking\n" +
+                        "look = look around area\n";
+                break;
             case "quit":
             case "exit":
                 isPlayingGame = false;
@@ -121,7 +131,8 @@ public class GameController {
                  break;
         }
         
-        if (player.isCompassActive()) {
+        if (!action.equals("quit") && !action.equals("exit") &&
+            player.isCompassActive()) {
             response += "\nThe dial reads " + String.format("%.2f", getNearestTreasureDistance()) + "m.";
         }
         

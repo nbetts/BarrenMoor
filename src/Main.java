@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         GameController controller = new GameController();
-        controller.gameBoard.setRandomTreasure(2);
+        controller.gameBoard.setRandomTreasure(3);
         String input, response;
         
         System.out.println("\n" + 
@@ -13,10 +13,12 @@ public class Main {
                 "  '|___/ ,-. ,-. ,-. ,-. ,-.   `,| | |   ,-. ,-. ,-. \n" + 
                 "  ,|   \\ ,-| |   |   |-' | |     | ; | . | | | | |  \n" + 
                 " `-^---' `-^ '   '   `-' ' '     '   `-' `-' `-' '   \n");
-        System.out.println("You awaken to find yourself in a barren moor.  Try \"look\"");
+        System.out.println("You awaken to find yourself in a barren moor.\n" +
+                           "Try \"look\" or \"help\" for more info.");
         
         while(controller.isPlayingGame()) {
-            controller.printMap();
+            // Uncomment this line to see the map whilst playing.
+            //controller.printMap();
 
             input = controller.getInput();
             response = controller.performAction(input);
@@ -27,7 +29,7 @@ public class Main {
             }
         }
         
-        System.out.println("\n" +
+        System.out.println(
                 ",---.            . .           \n" + 
                 "|  -'  ,-. ,-. ,-| |-. . . ,-. \n" + 
                 "|  ,-' | | | | | | | | | | |-' \n" + 
