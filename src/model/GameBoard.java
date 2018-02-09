@@ -5,6 +5,7 @@ import java.util.Collections;
 public class GameBoard {
     private final int boardWidth;
     private Tile[][] tiles;
+    private final Coordinate startingPoint;
     
     public GameBoard() {
         this(5);
@@ -19,6 +20,8 @@ public class GameBoard {
                 tiles[i][j] = new Tile(new Coordinate(i, j));
             }
         }
+        
+        startingPoint = new Coordinate(boardWidth / 2, boardWidth / 2);
     }
 
     public int getBoardWidth() {
@@ -26,7 +29,11 @@ public class GameBoard {
     }
     
     public int getTileCount() {
-        return ((boardWidth * 2) - 1) * ((boardWidth * 2) - 1);
+        return boardWidth * boardWidth;
+    }
+    
+    public Coordinate getStartingPoint() {
+        return startingPoint;
     }
     
     public boolean setRandomTreasure(int numberOfTreasure) {
@@ -37,10 +44,12 @@ public class GameBoard {
         }
         
         ArrayList<Integer> tileNumbers = new ArrayList<>(tileCount);
+        int startingTile = (startingPoint.getX() * boardWidth) +
+                            startingPoint.getY();
         
         for (int i = 0; i < tileCount; i++) {
             // Skip the middle tile so that the player won't begin on top of treasure.
-            if (i != tileCount / 2) {
+            if (i != startingTile) {
                 tileNumbers.add(i);
             }
         }
@@ -70,7 +79,7 @@ public class GameBoard {
             }
         }
         
-        return (Tile[]) treasureTiles.toArray();
+        return treasureTiles.stream().toArray(Tile[]::new);
     }
     
     // TODO remove this temp method after testing

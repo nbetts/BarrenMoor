@@ -7,6 +7,11 @@ public class Player {
     private ArrayList<Treasure> treasureList;
     
     public Player() {
+        this(null);
+    }
+    
+    public Player(Coordinate coordinate) {
+        this.coordinate = coordinate;
         treasureList = new ArrayList<>();
     }
     
