@@ -60,7 +60,7 @@ public class GameController {
     }
     
     public String performAction(String action) {
-        action = action.toLowerCase().replaceAll("[^a-z]", "");
+        action = action.trim().toLowerCase().replaceAll("[^a-z ]", "");
         String response = "";
 
         switch (action) {
@@ -98,10 +98,6 @@ public class GameController {
                 break;
             case "toggle compass":
                 player.setIsCompassActive(!player.isCompassActive());
-                
-                if (player.isCompassActive()) {
-                    response = "The dial reads " + getNearestTreasureDistance() + "m.";
-                }
                 break;
             case "look":
                 response = "Grey foggy clouds float oppressively close to you,\n" + 
@@ -119,6 +115,10 @@ public class GameController {
              default:
                  response = "Unrecognised action.";
                  break;
+        }
+        
+        if (player.isCompassActive()) {
+            response += "\nThe dial reads " + String.format("%.2f", getNearestTreasureDistance()) + "m.";
         }
         
         return response;
