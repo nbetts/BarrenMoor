@@ -59,33 +59,99 @@ public class GameController {
         return inputScanner.nextLine();
     }
     
-    public void performAction(String action) {
-        action = action.toLowerCase();
+    public String performAction(String action) {
+        action = action.toLowerCase().replaceAll("[^a-z]", "");
+        String response = "";
 
         switch (action) {
+            case "n":
             case "north":
-                player.moveNorth();
+                if (canMove("north")) {
+                    player.moveNorth();
+                } else {
+                    response = "Cannot move further North";
+                }
                 break;
+            case "s":
             case "south":
-                player.moveSouth();
+                if (canMove("south")) {
+                    player.moveSouth();
+                } else {
+                    response = "Cannot move further South";
+                }
                 break;
+            case "e":
             case "east":
-                player.moveEast();
+                if (canMove("east")) {
+                    player.moveEast();
+                } else {
+                    response = "Cannot move further East";
+                }
                 break;
+            case "w":
             case "west":
-                player.moveWest();
+                if (canMove("west")) {
+                    player.moveWest();
+                } else {
+                    response = "Cannot move further West";
+                }
                 break;
             case "toggle compass":
                 player.setIsCompassActive(!player.isCompassActive());
+                
+                if (player.isCompassActive()) {
+                    response = "The dial reads " + getNearestTreasureDistance() + "m.";
+                }
                 break;
             case "look":
+                break;
+            case "compass":
+                response = "The dial reads " + getNearestTreasureDistance() + "m.";
                 break;
             case "quit":
             case "exit":
                 isPlayingGame = false;
                 inputScanner.close();
+                response = "Goodbye.";
+                break;
+             default:
+                 response = "Unrecognised action.";
+                 break;
+        }
+        
+        return response;
+    }
+    
+    public boolean canMove(String action) {
+        boolean canMove = true;
+        
+        switch (action) {
+            case "north":
+                if (player.getCoordinate().getX() == 0) {
+                    canMove = false;
+                }
+                break;
+            case "south":
+                if (player.getCoordinate().getX() + 1 == gameBoard.getBoardWidth()) {
+                    canMove = false;
+                }
+                break;
+            case "east":
+                if (player.getCoordinate().getY() + 1 == gameBoard.getBoardWidth()) {
+                    canMove = false;
+                }
+                break;
+            case "west":
+                if (player.getCoordinate().getY() == 0) {
+                    canMove = false;
+                }
+                break;
+            default:
+                canMove = false;
                 break;
         }
+        
+        return canMove;
     }
     
     public void printMap() {
