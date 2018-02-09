@@ -18,7 +18,7 @@ public class GameController {
         player = new Player(gameBoard.getStartingPoint());
     }
     
-    public double[] detectTreasure() {
+    public double[] getTreasureDistances() {
         Tile[] treasureTiles = gameBoard.getTreasureTiles();
         double[] treasureDistances = new double[treasureTiles.length];
         Coordinate playerCoordinate = player.getCoordinate();
@@ -29,5 +29,18 @@ public class GameController {
         }
         
         return treasureDistances;
+    }
+    
+    public double getNearestTreasureDistance() {
+        double[] treasureDistances = getTreasureDistances();
+        double nearestDistance = Double.MAX_VALUE;
+        
+        for (int i = 0; i < treasureDistances.length; i++) {
+            if (treasureDistances[i] < nearestDistance) {
+                nearestDistance = treasureDistances[i];
+            }
+        }
+        
+        return nearestDistance;
     }
 }
