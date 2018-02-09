@@ -104,6 +104,9 @@ public class GameController {
                 }
                 break;
             case "look":
+                response = "Grey foggy clouds float oppressively close to you,\n" + 
+                           "reflected in the murky grey water which reaches up your shins.\n" + 
+                           "Some black plants barely poke out of the shallow water.";
                 break;
             case "compass":
                 response = "The dial reads " + getNearestTreasureDistance() + "m.";
@@ -112,7 +115,6 @@ public class GameController {
             case "exit":
                 isPlayingGame = false;
                 inputScanner.close();
-                response = "Goodbye.";
                 break;
              default:
                  response = "Unrecognised action.";
