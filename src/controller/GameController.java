@@ -68,6 +68,7 @@ public class GameController {
             case "north":
                 if (canMove("north")) {
                     player.moveNorth();
+                    response = checkForTreasure();
                 } else {
                     response = "Cannot move further North";
                 }
@@ -76,6 +77,7 @@ public class GameController {
             case "south":
                 if (canMove("south")) {
                     player.moveSouth();
+                    response = checkForTreasure();
                 } else {
                     response = "Cannot move further South";
                 }
@@ -84,6 +86,7 @@ public class GameController {
             case "east":
                 if (canMove("east")) {
                     player.moveEast();
+                    response = checkForTreasure();
                 } else {
                     response = "Cannot move further East";
                 }
@@ -92,6 +95,7 @@ public class GameController {
             case "west":
                 if (canMove("west")) {
                     player.moveWest();
+                    response = checkForTreasure();
                 } else {
                     response = "Cannot move further West";
                 }
@@ -154,6 +158,19 @@ public class GameController {
         }
         
         return canMove;
+    }
+    
+    public String checkForTreasure() {
+        String response = "";
+        Tile tile = gameBoard.getTiles()[player.getCoordinate().getX()]
+                                        [player.getCoordinate().getY()];
+        
+        if (tile.hasTreasure()) {
+            response = "You've found a " + tile.getTreasure().getName() + "!";
+            tile.setTreasure(null);
+        }
+        
+        return response;
     }
     
     public void printMap() {

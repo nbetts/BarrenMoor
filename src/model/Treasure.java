@@ -7,7 +7,7 @@ public enum Treasure {
     CHEST ("Chest", "H"),
     SWORD ("Sword", "/"),
     COIN ("Coin", "c"),
-    SHACKLES ("Shackles", "x"),
+    SHACKLES ("Shackle", "x"),
     SHOE ("Shoe", "s");
     
     private final UUID id;
