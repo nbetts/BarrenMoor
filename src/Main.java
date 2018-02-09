@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         GameController controller = new GameController();
-        controller.gameBoard.setRandomTreasure(5);
+        controller.gameBoard.setRandomTreasure(2);
         String input, response;
         
         System.out.println("\n" + 
@@ -21,9 +21,13 @@ public class Main {
             input = controller.getInput();
             response = controller.performAction(input);
             System.out.println(response);
+            
+            if (controller.hasAllTreasureBeenFound()) {
+                System.out.println("Well done! You've found all the treasure.");
+            }
         }
         
-        System.out.println( 
+        System.out.println("\n" +
                 ",---.            . .           \n" + 
                 "|  -'  ,-. ,-. ,-| |-. . . ,-. \n" + 
                 "|  ,-' | | | | | | | | | | |-' \n" + 

@@ -173,6 +173,16 @@ public class GameController {
         return response;
     }
     
+    public boolean hasAllTreasureBeenFound() {
+        boolean hasAllTreasureBeenFound = gameBoard.getTreasureTiles().length == 0;
+        
+        if (hasAllTreasureBeenFound) {
+            isPlayingGame = false;
+        }
+        
+        return hasAllTreasureBeenFound;
+    }
+    
     public void printMap() {
         int boardWidth = gameBoard.getBoardWidth();
         Tile[][] tiles = gameBoard.getTiles();
