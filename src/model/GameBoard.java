@@ -68,6 +68,10 @@ public class GameBoard {
         return true;
     }
     
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+    
     public Tile[] getTreasureTiles() {
         ArrayList<Tile> treasureTiles = new ArrayList<>(); 
         
@@ -80,40 +84,5 @@ public class GameBoard {
         }
         
         return treasureTiles.stream().toArray(Tile[]::new);
-    }
-    
-    // TODO remove this temp method after testing
-    public void printGameBoard() {
-        System.out.print(" ");
-        
-        for (int i = 0; i < boardWidth; i++) {
-            System.out.print("--");
-        }
-        
-        System.out.println();
-
-        for (int i = 0; i < boardWidth; i++) {
-            System.out.print("|");
-
-            for (int j = 0; j < boardWidth; j++ ) {
-                Tile tile = tiles[i][j];
-
-                if (tile.hasTreasure()) {
-                    System.out.print(tile.getTreasure().getSymbol() + " ");
-                } else {
-                    System.out.print("  ");
-                }
-            }
-            
-            System.out.println("|");
-        }
-        
-        System.out.print(" ");
-        
-        for (int i = 0; i < boardWidth; i++) {
-            System.out.print("--");
-        }
-        
-        System.out.println();
     }
 }

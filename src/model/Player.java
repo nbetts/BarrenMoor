@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Player {
     private Coordinate coordinate;
     private ArrayList<Treasure> treasureList;
+    private boolean isCompassActive;
     
     public Player() {
         this(null);
@@ -13,6 +14,7 @@ public class Player {
     public Player(Coordinate coordinate) {
         this.coordinate = coordinate;
         treasureList = new ArrayList<>();
+        isCompassActive = false;
     }
     
     public Coordinate getCoordinate() {
@@ -29,5 +31,29 @@ public class Player {
     
     public void addTreasure(Treasure treasure) {
         treasureList.add(treasure);
+    }
+    
+    public boolean isCompassActive() {
+        return isCompassActive;
+    }
+    
+    public void setIsCompassActive(boolean isCompassActive) {
+        this.isCompassActive = isCompassActive;
+    }
+    
+    public void moveNorth() {
+        coordinate.setX(coordinate.getX() - 1);
+    }
+    
+    public void moveSouth() {
+        coordinate.setX(coordinate.getX() + 1);
+    }
+    
+    public void moveEast() {
+        coordinate.setY(coordinate.getY() + 1);
+    }
+    
+    public void moveWest() {
+        coordinate.setY(coordinate.getY() - 1);
     }
 }
