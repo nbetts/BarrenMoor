@@ -3,28 +3,19 @@ package model;
 import java.util.ArrayList;
 
 public class Player {
-    private int coordX;
-    private int coordY;
+    private Coordinate coordinate;
     private ArrayList<Treasure> treasureList;
     
     public Player() {
         treasureList = new ArrayList<>();
     }
-
-    public int getCoordX() {
-        return coordX;
+    
+    public Coordinate getCoordinate() {
+        return coordinate;
     }
-
-    public void setCoordX(int coordX) {
-        this.coordX = coordX;
-    }
-
-    public int getCoordY() {
-        return coordY;
-    }
-
-    public void setCoordY(int coordY) {
-        this.coordY = coordY;
+    
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 
     public ArrayList<Treasure> getTreasureList() {

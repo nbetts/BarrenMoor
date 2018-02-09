@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameBoard {
-    private final int height;
-    private final int width;
+    private final int boardWidth;
     private Tile[][] tiles;
     
     public GameBoard() {
@@ -12,31 +11,22 @@ public class GameBoard {
     }
     
     public GameBoard(int boardRadius) {
-        this((boardRadius * 2) + 1, (boardRadius * 2) + 1);
-    }
-    
-    public GameBoard(int height, int width) {
-        this.height = height;
-        this.width = width;
-        tiles = new Tile[height][width];
+        boardWidth = (boardRadius * 2) - 1;
+        tiles = new Tile[boardWidth][boardWidth];
         
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++ ) {
-                tiles[i][j] = new Tile();
+        for (int i = 0; i < boardWidth; i++) {
+            for (int j = 0; j < boardWidth; j++) {
+                tiles[i][j] = new Tile(new Coordinate(i, j));
             }
         }
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
+    public int getBoardWidth() {
+        return boardWidth;
     }
     
     public int getTileCount() {
-        return height * width;
+        return ((boardWidth * 2) - 1) * ((boardWidth * 2) - 1);
     }
     
     public boolean setRandomTreasure(int numberOfTreasure) {
@@ -49,20 +39,19 @@ public class GameBoard {
         ArrayList<Integer> tileNumbers = new ArrayList<>(tileCount);
         
         for (int i = 0; i < tileCount; i++) {
-            // By skipping this particular tile, the player won't begin on top of treasure.
-            if (i == tileCount / 2) {
-                continue;
+            // Skip the middle tile so that the player won't begin on top of treasure.
+            if (i != tileCount / 2) {
+                tileNumbers.add(i);
             }
-            
-            tileNumbers.add(i);
         }
         
         Collections.shuffle(tileNumbers);
         
         for (int i = 0; i < numberOfTreasure; i++) {
             int tileNumber = tileNumbers.get(i);
-            int x = tileNumber % height;
-            int y = tileNumber / height;
+            
+            int x = tileNumber % boardWidth;
+            int y = tileNumber / boardWidth;
             
             tiles[x][y].setTreasure(Treasure.getRandomTreasure());
         }
@@ -70,26 +59,40 @@ public class GameBoard {
         return true;
     }
     
+    public Tile[] getTreasureTiles() {
+        ArrayList<Tile> treasureTiles = new ArrayList<>(); 
+        
+        for (int i = 0; i < boardWidth; i++) {
+            for (int j = 0; j < boardWidth; j++ ) {
+                if (tiles[i][j].hasTreasure()) {
+                    treasureTiles.add(tiles[i][j]);
+                }
+            }
+        }
+        
+        return (Tile[]) treasureTiles.toArray();
+    }
+    
     // TODO remove this temp method after testing
     public void printGameBoard() {
         System.out.print(" ");
         
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < boardWidth; i++) {
             System.out.print("--");
         }
         
         System.out.println();
 
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < boardWidth; i++) {
             System.out.print("|");
 
-            for (int j = 0; j < width; j++ ) {
-                Treasure treasure = tiles[i][j].getTreasure();
+            for (int j = 0; j < boardWidth; j++ ) {
+                Tile tile = tiles[i][j];
 
-                if (treasure == null) {
-                    System.out.print("  ");
+                if (tile.hasTreasure()) {
+                    System.out.print(tile.getTreasure().getSymbol() + " ");
                 } else {
-                    System.out.print(treasure.getSymbol() + " ");
+                    System.out.print("  ");
                 }
             }
             
@@ -98,7 +101,7 @@ public class GameBoard {
         
         System.out.print(" ");
         
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < boardWidth; i++) {
             System.out.print("--");
         }
         
