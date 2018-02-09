@@ -8,7 +8,11 @@ public class GameBoard {
     private Tile[][] tiles;
     
     public GameBoard() {
-        this(20, 20);
+        this(5);
+    }
+    
+    public GameBoard(int boardRadius) {
+        this((boardRadius * 2) + 1, (boardRadius * 2) + 1);
     }
     
     public GameBoard(int height, int width) {
@@ -38,13 +42,18 @@ public class GameBoard {
     public boolean setRandomTreasure(int numberOfTreasure) {
         int tileCount = getTileCount();
         
-        if (numberOfTreasure > tileCount) {
+        if (numberOfTreasure >= tileCount) {
             return false;
         }
         
         ArrayList<Integer> tileNumbers = new ArrayList<>(tileCount);
         
         for (int i = 0; i < tileCount; i++) {
+            // By skipping this particular tile, the player won't begin on top of treasure.
+            if (i == tileCount / 2) {
+                continue;
+            }
+            
             tileNumbers.add(i);
         }
         
